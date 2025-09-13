@@ -7,13 +7,13 @@ function memsafe:Create(Size: number?)
 	local safeSize = 0
 	
 	function methods:append(k: any, v: any): boolean
+		local exists = safe[k]
+			
+		if exists then
+			self:remove(k)
+		end
+
 		if (Size and safeSize < Size) or not Size then
-			local exists = safe[k]
-			
-			if exists then
-				self:remove(k)
-			end
-			
 			safe[k] = v
 
 			if typeof(v) == "Instance" then
